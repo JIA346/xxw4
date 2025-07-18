@@ -1,0 +1,555 @@
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>高等教育信息</title>
+  <style>
+    /* 全局样式重置与基础设置 */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: "微软雅黑", sans-serif;
+    }
+
+    body {
+      background-color: #f5f7fa;
+      color: #333;
+      line-height: 1.6;
+    }
+
+    a {
+      text-decoration: none;
+      color: rgb(159, 154, 154);
+      font-size: 12px;
+    }
+
+    /* 第一个页面顶部标题栏 */
+    .header {
+      background-color: #27b977;
+      color: #fff;
+      padding: 12px 16px;
+      font-size: 16px;
+      display: flex;
+      align-items: center;
+      position: relative;
+    }
+
+    .header .back-btn {
+      width: 20px;
+      height: 20px;
+      background: url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke-width='1.5' stroke='%23fff'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' d='M10.5 19.5L3 12m0 0l7.5-7.5M3 12h18' /%3E%3C/svg%3E") no-repeat center;
+      background-size: contain;
+      cursor: pointer;
+    }
+
+    .header span {
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+
+    /* 第二个页面顶部标题栏 */
+    .image-header {
+      background-color: #fff;
+      color: #000;
+      padding: 12px 16px;
+      font-size: 16px;
+      display: none;
+      align-items: center;
+      position: relative;
+      border-bottom: 1px solid #e0e0e0;
+    }
+
+    .image-header .back-btn {
+      width: 20px;
+      height: 20px;
+      background: url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke-width='1.5' stroke='%23000000'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' d='M10.5 19.5L3 12m0 0l7.5-7.5M3 12h18' /%3E%3C/svg%3E") no-repeat center;
+      background-size: contain;
+      cursor: pointer;
+    }
+
+    .image-header span {
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+
+    /* 职场实习模块 */
+    .banner {
+      background: #d7d7ee;
+      padding: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin: 16px;
+      border-radius: 8px;
+      height: 80px;
+    }
+
+    .banner .text {
+      flex: 1;
+      margin-right: 16px;
+    }
+
+    .banner .text h2 {
+      font-size: 16px;
+      font-weight: bold;
+      margin-bottom: 4px;
+      color: #302586;
+    }
+
+    .banner .text p {
+      font-size: 10px;
+      font-weight: bold;
+      color: #302586;
+      margin-bottom: 4px;
+    }
+
+    .banner .right-image {
+      width: 180px;
+      padding: 12px;
+      height: 80px;
+      background-color: #d7d7ee;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .banner .right-image img {
+      max-width: 100%;
+      max-height: auto;
+    }
+
+    /* 学籍样式 */
+    .school-record {
+      margin: 16px;
+      border-radius: 8px;
+    }
+
+    .school-record .section-title {
+      font-size: 16px;
+      margin-bottom: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .card-list {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .card1 {
+      background-color: #27b977;
+      padding: 12px;
+      border-radius: 8px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      cursor: pointer;
+    }
+
+    .card1 .content {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .card1 .content .school {
+      font-size: 18px;
+      margin-bottom: 4px;
+      color: #fff;
+    }
+
+    .card1 .content .major-type {
+      font-size: 14px;
+      color: #fff;
+    }
+
+    .card1 .tag {
+      background-color: #356c48;
+      color: #fff;
+      padding: 4px 8px;
+      border-radius: 4px;
+      font-size: 12px;
+    }
+
+    /* 学历信息 */
+    .education-degree {
+      margin: 16px;
+      border-radius: 8px;
+    }
+
+    .education-degree .section-title {
+      font-size: 16px;
+      margin-bottom: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .card-list {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .card2 {
+      background-color: #fff;
+      padding: 12px;
+      border-radius: 8px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      /* 添加阴影效果 */
+    }
+
+    .card2 .content {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .card2 .content .school {
+      display: block;
+      margin: 0 auto;
+      font-size: 18px;
+      margin-bottom: 4px;
+      color: #333;
+      text-align: center;
+    }
+
+    .card2 .content .major-type {
+      font-size: 14px;
+      color: #27b977;
+      text-align: center;
+      display: block;
+      /* 添加这一行 */
+      margin: 0 auto;
+    }
+
+    /* 学位信息 */
+    .degree-information {
+      margin: 16px;
+      border-radius: 8px;
+    }
+
+    .degree-information .section-title {
+      font-size: 16px;
+      margin-bottom: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .degree-information .card-list {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .degree-information .card2 {
+      background-color: #fff;
+      padding: 12px;
+      border-radius: 8px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      /* 添加阴影效果 */
+    }
+
+    .degree-information .card2 .content {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .degree-information .card2 .content .school {
+      display: block;
+      margin: 0 auto;
+      font-size: 18px;
+      margin-bottom: 4px;
+      color: #333;
+      text-align: center;
+    }
+
+    .degree-information .card2 .content .major-type {
+      font-size: 14px;
+      color: #27b977;
+      text-align: center;
+      display: block;
+      margin: 0 auto;
+    }
+    /* 考研信息 */
+    .exam-information {
+      margin: 16px;
+      border-radius: 8px;
+    }
+
+    .exam-information .section-title {
+      font-size: 16px;
+      margin-bottom: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .exam-information .card-list {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .exam-information .card2 {
+      background-color: #fff;
+      padding: 12px;
+      border-radius: 8px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      /* 添加阴影效果 */
+    }
+
+    .exam-information .card2 .content {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .exam-information .card2 .content .school {
+      display: block;
+      margin: 0 auto;
+      font-size: 18px;
+      margin-bottom: 4px;
+      color: #333;
+      text-align: center;
+    }
+
+    .exam-information .card2 .content .type {
+      font-size: 14px;
+      color: #333;
+      text-align: center;
+      display: block;
+      margin: 0 auto;
+    }
+       /* 响应式适配（简单处理） */
+       @media (max-width: 375px) {
+      .banner {
+        flex-direction: column;
+        text-align: center;
+      }
+
+      .banner .illustration {
+        margin-top: 8px;
+      }
+    }
+
+    .custom-color {
+      color: #27b977;
+    }
+    /* 图片展示页面样式 */
+    .image-container {
+      max-width: 100%;
+      margin: 0 auto;
+      padding: 0;
+      display: none;
+    }
+
+    .image-container img {
+      display: block;
+      width: 100%;
+      height: auto;
+      margin-bottom: 0;
+      border-radius: 0;
+    }
+
+    /* 加载条样式 */
+    .progress-bar {
+      width: 0%;
+      height: 4px;
+      background-color: #27b977;
+      position: fixed;
+      top: 0;
+      left: 0;
+      z-index: 999;
+    }
+  </style>
+</head>
+
+<body>
+  <!-- 第一个页面顶部标题栏 -->
+  <div class="header">
+    <div class="back-btn"></div>
+    <span>高等教育信息</span>
+  </div>
+
+  <!-- 第二个页面顶部标题栏 (初始隐藏) -->
+  <div class="image-header" id="imageHeader">
+    <div class="back-btn" id="backButton"></div>
+    <span>高等学籍</span>
+  </div>
+
+  <!-- 职场实习模块 -->
+  <div class="banner">
+    <div class="text">
+      <h2>职场实习</h2>
+      <p>反馈实习困惑、实战心得与建议，帮大家实习少走弯路</p>
+    </div>
+    <div class="right-image">
+      <img src="/xxw4/1.jpg" alt="职场实习示例图" />
+    </div>
+  </div>
+
+  <!-- 学籍信息 -->
+  <div class="school-record">
+    <div class="section-title">
+      <span>学籍信息 (1)</span>
+      <a href="#">还有学籍没有显示出来？<span class="custom-color">尝试绑定</span></a>
+    </div>
+    <div class="card-list">
+      <div class="card1" id="schoolRecordCard">
+        <div class="content">
+          <div class="school">中南林业科技大学</div>
+          <div class="major-type">森林工程工程 | 普通全日制</div>
+        </div>
+        <div class="tag" style="background-color: #356c48;">本科</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 学历信息 -->
+  <div class="education-degree">
+    <div class="section-title">
+      <span>学历信息 (0)</span>
+      <a href="#">还有学历没有显示出来？<span class="custom-color">尝试绑定</span></a>
+    </div>
+    <div class="card-list">
+      <div class="card2">
+        <div class="content">
+          <div class="school">没有找到您的学历信息</div>
+          <div class="major-type">查看解决办法</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 学位信息 -->
+  <div class="degree-information">
+    <div class="section-title">
+      <span>学位信息(0)</span>
+      <a href="#">还有学位没有显示出来？<span class="custom-color">尝试绑定</span></a>
+    </div>
+    <div class="card-list">
+      <div class="card2">
+        <div class="content">
+          <div class="school">您还未绑定学位信息可以使用 “尝试绑定学位” 功能绑定您的学位</div>
+          <div class="major-type">提示信息</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 考研信息 -->
+  <div class="exam-information">
+    <div class="section-title">
+      <span>考研信息(0)</span>
+    </div>
+    <div class="card-list">
+      <div class="card2">
+        <div class="content">
+          <div class="school">您没有考研信息！</div>
+          <div class="type">您目前没有考研信息,系统提供2006年以来入学的硕士研究生报名和成绩数据。</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 图片展示页面 -->
+  <div class="image-container">
+    <img src="/xxw4/2.jpg" alt="第一张图片" />
+    <img src="/xxw4/4.jpg" alt="第二张图片" />
+  </div>
+
+  <!-- 加载条 -->
+  <div class="progress-bar" id="progressBar"></div>
+
+  <script>
+    // 获取DOM元素
+    const schoolRecordCard = document.getElementById('schoolRecordCard');
+    const imageContainer = document.querySelector('.image-container');
+    const progressBar = document.getElementById('progressBar');
+    const currentContent = document.querySelectorAll('.header, .banner, .school-record, .education-degree, .degree-information, .exam-information');
+    const imageHeader = document.getElementById('imageHeader');
+    const backButton = document.getElementById('backButton');
+
+    // 为卡片添加点击事件监听器
+    schoolRecordCard.addEventListener('click', function () {
+      // 显示加载条和第二个页面的标题栏
+      progressBar.style.display = 'block';
+      imageHeader.style.display = 'flex';
+      
+      // 隐藏当前页面内容
+      currentContent.forEach(element => {
+        element.style.transition = 'opacity 0.3s ease-out';
+        element.style.opacity = '0';
+      });
+
+      // 模拟加载过程
+      let width = 0;
+      const interval = setInterval(() => {
+        if (width >= 100) {
+          clearInterval(interval);
+          
+          // 隐藏当前内容
+          currentContent.forEach(element => {
+            element.style.display = 'none';
+          });
+          
+          // 显示图片展示页面
+          imageContainer.style.display = 'block';
+          imageContainer.style.opacity = '0';
+          
+          // 添加淡入效果
+          setTimeout(() => {
+            imageContainer.style.transition = 'opacity 0.5s ease-in';
+            imageContainer.style.opacity = '1';
+            progressBar.style.display = 'none';
+          }, 50);
+        } else {
+          width += 10; // 每次增加2%
+          progressBar.style.width = width + '%';
+        }
+      }, 10); // 定时器间隔
+    });
+
+    // 返回按钮点击事件
+    backButton.addEventListener('click', function () {
+      // 隐藏图片页面和标题栏
+      imageContainer.style.display = 'none';
+      imageHeader.style.display = 'none';
+      
+      // 显示第一个页面内容
+      currentContent.forEach(element => {
+        element.style.display = 'block';
+        element.style.opacity = '0';
+        
+        // 添加淡入效果
+        setTimeout(() => {
+          element.style.transition = 'opacity 0.5s ease-in';
+          element.style.opacity = '1';
+        }, 50);
+      });
+    });
+  </script>
+</body>
+
+</html>
